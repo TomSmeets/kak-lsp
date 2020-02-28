@@ -46,12 +46,7 @@ pub fn editor_references(meta: EditorMeta, result: Option<Vec<Location>>, ctx: &
         .map(|(filename, group)| {
             let filename = filename.unwrap();
             let file = File::open(&filename);
-            let name = filename
-                .strip_prefix(&ctx.root_path)
-                .ok()
-                .and_then(|p| Some(p.to_str().unwrap()))
-                .or_else(|| filename.to_str())
-                .unwrap();
+            let name = filename.to_str().unwrap();
 
             if file.is_err() {
                 error!("Failed to open referenced file: {}", name);

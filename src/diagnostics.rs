@@ -95,12 +95,7 @@ pub fn editor_diagnostics(meta: EditorMeta, ctx: &mut Context) {
                     let p = get_kakoune_position(filename, &x.range.start, ctx).unwrap();
                     format!(
                         "{}:{}:{}: {}:{}",
-                        Path::new(filename)
-                            .strip_prefix(&ctx.root_path)
-                            .ok()
-                            .and_then(|p| Some(p.to_str().unwrap()))
-                            .or_else(|| Some(filename))
-                            .unwrap(),
+                        filename,
                         p.line,
                         p.column,
                         match x.severity {

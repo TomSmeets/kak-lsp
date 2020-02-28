@@ -49,12 +49,7 @@ pub fn format_symbol_information(items: Vec<SymbolInformation>, ctx: &Context) -
                 ..
             } = symbol;
             let filename = location.uri.to_file_path().unwrap();
-            let filename = filename
-                .strip_prefix(&ctx.root_path)
-                .ok()
-                .and_then(|p| p.to_str())
-                .or_else(|| filename.to_str())
-                .unwrap();
+            let filename = filename.to_str().unwrap();
 
             let position = get_kakoune_position(filename, &location.range.start, ctx)
                 .unwrap_or_else(|| KakounePosition {
@@ -84,12 +79,7 @@ pub fn format_document_symbol(
             let DocumentSymbol {
                 range, name, kind, ..
             } = symbol;
-            let filename = path::PathBuf::from(&meta.buffile);
-            let filename = filename
-                .strip_prefix(&ctx.root_path)
-                .ok()
-                .and_then(|p| p.to_str())
-                .unwrap_or(&meta.buffile);
+            let filename = &meta.buffile;
 
             let position = get_kakoune_position(filename, &range.start, ctx).unwrap_or_else(|| {
                 KakounePosition {
