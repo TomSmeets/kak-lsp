@@ -793,8 +793,6 @@ define-command -hidden lsp-show-error -params 1 -docstring "Render error" %{
 define-command -hidden lsp-show-diagnostics -params 2 -docstring "Render diagnostics" %{
     evaluate-commands -try-client %opt[toolsclient] %{
         edit! -scratch *diagnostics*
-        cd %arg{1}
-        try %{ set-option buffer working_folder %sh{pwd} }
         set-option buffer filetype make
         set-register '"' %arg{2}
         execute-keys Pgg
@@ -804,8 +802,6 @@ define-command -hidden lsp-show-diagnostics -params 2 -docstring "Render diagnos
 define-command -hidden lsp-show-references -params 2 -docstring "Render references" %{
     evaluate-commands -try-client %opt[toolsclient] %{
         edit! -scratch *references*
-        cd %arg{1}
-        try %{ set-option buffer working_folder %sh{pwd} }
         set-option buffer filetype grep
         set-option buffer grep_current_line 0
         set-register '"' %arg{2}
@@ -816,8 +812,6 @@ define-command -hidden lsp-show-references -params 2 -docstring "Render referenc
 define-command -hidden lsp-show-implementations -params 2 -docstring "Render implementations" %{
     evaluate-commands -try-client %opt[toolsclient] %{
         edit! -scratch *implementations*
-        cd %arg{1}
-        try %{ set-option buffer working_folder %sh{pwd} }
         set-option buffer filetype grep
         set-option buffer grep_current_line 0
         set-register '"' %arg{2}
@@ -828,8 +822,6 @@ define-command -hidden lsp-show-implementations -params 2 -docstring "Render imp
 define-command -hidden lsp-show-document-symbol -params 2 -docstring "Render document symbols" %{
     evaluate-commands -try-client %opt[toolsclient] %{
         edit! -scratch *symbols*
-        cd %arg{1}
-        try %{ set-option buffer working_folder %sh{pwd} }
         set-option buffer filetype grep
         set-option buffer grep_current_line 0
         set-register '"' %arg{2}
@@ -862,8 +854,6 @@ define-command -hidden lsp-previous-match -params 1 -docstring %{
 }
 
 define-command -hidden lsp-update-workspace-symbol -params 2 -docstring "Update workspace symbols buffer" %{
-    cd %arg{1}
-    try %{ set-option buffer working_folder %sh{pwd} }
     execute-keys '<a-;>%<a-;>d'
     set-register '"' %arg{2}
     execute-keys '<a-;>P<a-;>gg'
